@@ -61,6 +61,11 @@ class edaDF:
         self.cat = self.data.select_dtypes(include=['object', 'category']).columns.tolist()# saves categorical columns as a list in 'cat'
         self.num = self.data.select_dtypes(include=['int64', 'float64']).columns.tolist()# saves numerical columns as a list in 'num'
 
+        if self.cat.count(self.target) > 0:
+            self.cat.remove(self.target)
+        if self.num.count(self.target) > 0:
+            self.num.remove(self.target)
+
     def describe(self):
         """
     Method to display the summary statistics of numerical columns
@@ -200,7 +205,7 @@ class edaDF:
     def fullEDA(self, k, scatterplot=True, optional_countplots=True, optional_histplots=True):
         """
         # Method to run a full EDA on the dataframe
-    """
+    """ 
         self.autoSetTypes() # automatically identify categorical and numerical columns
 
         out1 = widgets.Output() # create output widgets
